@@ -108,6 +108,8 @@ K-means 算法通过交替执行“最优分配”和“最优更新”两步，
 
 
 
+
+
 # k-mean ++对于初始点选取的改进
 
 K-means++ 是一种改进的初始化方法，通过合理选取初始中心，避免随机初始化带来的聚类效果不稳定问题。其核心思想是：先随机选取一个中心，然后按“距离平方”权重依次选取后续中心，使新中心更可能分布在数据稀疏或远离已有中心的区域，从而加速收敛并提升聚类质量。
@@ -172,6 +174,8 @@ $$
    $$
 
 合理的初始中心通常能显著减少迭代次数，并提升最终聚类效果。
+
+
 
 
 
@@ -268,3 +272,80 @@ $$
 
 
 
+# 聚类评价指标
+
+## 1. Silhouette Score
+
+
+对于第 $i$个样本，令  
+
+- $a(i)$：样本 $i$ 在其所属簇内与其它样本的平均距离  
+- $b(i)$：样本 $i$ 与最近的非所属簇中所有样本的平均距离  
+
+则该样本的 $Silhouette$ 系数为： 
+$$
+(i) = \frac{b(i) - a(i)}{\max\{a(i),\,b(i)\}}.
+$$
+
+
+整体 $Silhouette Score$ 为所有样本的平均值： 
+$$
+\mathrm{Silhouette} = \frac{1}{N}\sum_{i=1}^{N} s(i),\quad s(i)\in[-1,1].
+$$
+
+
+- **越接近 1** 表示聚类效果越好；  
+- 近 0 表示簇与簇之间边界不清；  
+- 负值则说明样本可能被错误聚类。  
+
+
+
+## 2. Davies–Bouldin Score
+
+
+令簇 $C_i$ 的样本数为 $n_i$，簇内平均离散度（簇半径）为 
+$$
+S_i = \frac{1}{n_i} \sum_{x \in C_i} d\bigl(x, \mu_i\bigr),
+$$
+其中 $\mu_i$ 是簇 $C_i$的质心；簇 $i$ 与簇 $j$ 的质心距离为 
+$$
+M_{ij} = d\bigl(\mu_i, \mu_j\bigr).
+$$
+
+
+则 $Davies–Bouldin$ 指标定义为： 
+$$
+\mathrm{DB} = \frac{1}{K} \sum_{i=1}^K \max_{j \neq i}\;\frac{S_i + S_j}{M_{ij}}.
+$$
+
+
+- **值越小** 表示簇内越紧凑且簇间越分离。
+
+
+
+## 3. Calinski–Harabasz Score
+
+
+令总样本数为 $N$、簇数为 $K$、全局质心为 
+$$
+\mu = \frac{1}{N}\sum_{i=1}^N x_i.
+$$
+
+
+簇间离差平方和（$Between-cluster SS$） 
+$$
+\mathrm{SSB} = \sum_{i=1}^{K} n_i \,\bigl\lVert \mu_i - \mu\bigr\rVert^2.
+$$
+
+
+簇内离差平方和（$Within-cluster SS$） 
+$$
+\mathrm{SSW} = \sum_{i=1}^{K}\sum_{x\in C_i}\bigl\lVert x - \mu_i\bigr\rVert^2.
+$$
+
+则$ Calinski–Harabasz $指标为： 
+$$
+\mathrm{CH} = \frac{\mathrm{SSB}/(K-1)}{\mathrm{SSW}/(N-K)}
+$$
+
+- **值越大** 表示簇间方差相对于簇内方差越大，聚类效果越好。
