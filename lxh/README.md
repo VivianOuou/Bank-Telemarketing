@@ -2,13 +2,28 @@
 
 本项目使用UCI银行营销数据集构建和比较不同的机器学习模型，旨在预测客户是否会订购银行的定期存款产品。数据集包含多种客户属性和营销活动信息，目标变量是二分类问题（是否订购定期存款）。
 
+好的，这是您可以用于 README 文件中描述如何通过 `ucimlrepo` 库获取数据集的中文段落：
+
+------
+
+### 数据集获取
+
+本项目使用的数据集是来自 UCI 机器学习库 (UCI Machine Learning Repository) 的“银行营销 (Bank Marketing)”数据集。为了方便获取和加载数据，我们使用了 `ucimlrepo` 这个 Python 库。
+
+可以通过以下 pip 命令安装该库：
+
+```
+pip install ucimlrepo
+```
+
 ## 文件说明
 
-项目包含三个主要的Jupyter notebook文件：
+项目包含四个主要的Jupyter notebook文件：
 
-1. **baseline.ipynb** - 基础模型实现
-2. **basline_log_processing.ipynb** - 使用对数转换的数据处理方法
-3. **basline_log_smote.ipynb** - 结合对数转换和SMOTE过采样技术
+1. **EDA.ipynb** - 对原始数据的探索性分析
+2. **baseline.ipynb** - 基础模型实现
+3. **basline_log_processing.ipynb** - 使用对数转换的数据处理方法
+4. **basline_log_smote.ipynb** - 结合对数转换和SMOTE过采样技术
 
 ## 数据处理
 
@@ -56,12 +71,8 @@
 - 召回率 (Recall)
 - F1值 (F1-score)
 - ROC曲线下面积 (ROC AUC)
-
-### 实验结果
-
-在不平衡数据集上，基线模型倾向于高准确率但低召回率和F1值。通过对数转换和SMOTE技术的结合，模型的F1值和召回率有显著提升，更好地识别少数类（订购定期存款的客户）。
-
-神经网络模型在三个实现中都表现较好，特别是在应用SMOTE后，F1值有明显提升。CatBoost在不平衡数据上的表现也很稳定。
+- G-Mean
+- AUPRC
 
 ## 神经网络实现
 
@@ -77,7 +88,7 @@
 
 ## 使用方法
 
-要运行这些笔记本，您需要安装以下依赖：
+要运行这些笔记本，您需要安装以下依赖后按顺序依次运行单元格：
 - Python 3.x
 - PyTorch
 - scikit-learn
