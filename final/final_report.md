@@ -434,21 +434,26 @@ G-mean指标的提升（如XGBoost从0.6702提升至0.8623，CatBoost从0.6841�
 #### 8.3 实验结果展示与分析
 1. **各模型最佳阈值**
 以下是各个模型在满足Precision ≥ 50%约束条件下，所确定的最佳阈值：
-|       Model       | Best Threshold |
-| :---------------: | -------------- |
-|      XGBoost      | 0.626          |
-|     CatBoost      | 0.626          |
-|    PyTorch NN     | 0.465          |
-| Voting Classifier | 0.545          |
 
-2. **各模型性能指标对比**
+| Model | Best Threshold |
+| ---- | ---- |
+| XGBoost | 0.626 |
+| CatBoost | 0.626 |
+| PyTorch NN | 0.465 |
+| Voting Classifier | 0.545 |
+
+
+
+1. **各模型性能指标对比**
 在各自对应的最佳阈值下，各模型在Precision、Recall以及F1-score等重要性能指标上的具体表现如下：
+
 | Model                             | Precision | Recall   | F1-score |
 | --------------------------------- | --------- | -------- | -------- |
 | CatBoost (precision≥50%)          | 0.503756  | 0.811649 | 0.621669 |
 | Voting Classifier (precision≥50%) | 0.500234  | 0.809380 | 0.618318 |
 | XGBoost (precision≥50%)           | 0.501415  | 0.804085 | 0.617664 |
 | PyTorch NN (precision≥50%)        | 0.500995  | 0.761725 | 0.604442 |
+
 
 ![部分模型调整阈值后的Precision-Recall性能](./images/constraint.png)
 
